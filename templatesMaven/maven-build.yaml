@@ -1,0 +1,36 @@
+---
+parameters:
+  - name: goal
+    type: string
+    default: package
+    displayName: Maven run to goal
+  - name: testResultsFiles
+    type: string
+    default: '**/surefire-reports/TEST-*.xml'
+    displayName: testing results 
+  - name: Artifactspath
+    type: string
+    default: '**/*.jar'
+    displayName: artifacts path
+  - name: specificVersion
+    type: string
+    default: ''
+    displayName: Specific version
+
+steps:
+ - task: Maven@4
+   displayName: Maven Build Application
+   inputs:
+     mavenPomFile: pom.xml
+     goals: ${{ parameters.goal }}
+     publishJUnitResults: true
+     testResultsFiles: ${{ parameters.testResultsFiles }}
+   condition: eq('${{ parameters.specificVersion }}', '')
+ - task: CopyFiles@2
+   inputs:
+     contents: ${{ parameters.Artifactspath }}
+     targetFolder: $(Build.ArtifactStagingDirectory)
+ - task: PublishBuildArtifacts@1
+   inputs:
+     pathToPublish: $(Build.ArtifactStagingDirectory)
+     artifactName: $(Build.Repository.Name)
