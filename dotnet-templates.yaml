@@ -1,0 +1,42 @@
+--- 
+parameters:
+  - name: webproject
+    type: string
+    default: '**/*.csproj'
+  - name: testproject
+    type: string
+    default: '**/*Tests.csproj'
+  - name: runtests
+    type: boolean
+    default: true
+
+steps:
+  - task: DotNetCoreCLI@2
+    displayName: Building the code
+    inputs:
+      command: 'build'
+      projects: ${{ parameters.webproject }}
+  - task: DotNetCoreCLI@2
+    displayName: Run Unit tests
+    inputs:
+      command: 'test'
+      projects: ${{ parameters.testproject }}
+    condition: ${{ eq(parameters.runtests, true) }}
+  - task: DotNetCoreCLI@2
+    displayName: '$(Build.Repository.Name)'
+    inputs: 
+      command: 'publish'
+      publishWebProjects: false
+      projects: ${{ parameters.webproject }}
+      arguments: '-o $(Build.ArtifactStagingDirectory)/Output'
+      zipAfterPublish: true
+      modifyOutputPath: true
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/Output'
+      artifactName: '$(Build.Repository.Name)'
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      command: 'restore'
+      projects: ${{ parameters.webproject }}
