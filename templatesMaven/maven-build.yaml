@@ -34,29 +34,3 @@ steps:
    inputs:
      pathToPublish: $(Build.ArtifactStagingDirectory)
      artifactName: $(Build.Repository.Name)
-
-
-
-
-
-# ---
-# pool: Default
-# trigger: none
-# pr:
-#   branches:
-#     include:
-#       - main
-# resources: 
-#   repositories:
-#     - repository: reusablePublicTemplates
-#       type: github
-#       name: Zeeshanshaikh93/Azure-templates
-#       endpoint: github.com_Zeeshanshaikh93
-#       ref: 'refs/heads/main'
-# steps:
-#   - template: templatesMaven/maven-build.yaml@reusablePublicTemplates
-#     parameters:
-#       goal: 'package'
-#       testResultsFiles: '**/surefire-reports/TEST-*.xml'
-#       Artifactspath: '**/spring-petclinic*.jar'
-#       specificVersion: ''
