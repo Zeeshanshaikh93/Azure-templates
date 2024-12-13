@@ -34,3 +34,68 @@ steps:
    inputs:
      pathToPublish: $(Build.ArtifactStagingDirectory)
      artifactName: $(Build.Repository.Name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Templates using git & github
+        # &
+# Variables groups
+
+#      ---
+# pool: Default
+# trigger: none
+# pr:
+#   branches:
+#     include:
+#       - main
+# variables:
+#   - group: maven-variables
+# resources: 
+#   repositories:
+#     - repository: reusablePublicTemplates
+#       type: github
+#       name: Zeeshanshaikh93/Azure-templates
+#       endpoint: github.com_Zeeshanshaikh93
+#       ref: 'refs/heads/main'
+#     # - repository: reusablePrivateTemplates
+#     #   type: git
+#     #   name: Azure-templates.git
+#     #   ref: 'refs/heads/main'
+# steps:
+#   - template: templatesMaven/maven-build.yaml@reusablePublicTemplates
+#     parameters:
+#       goal: $(goal)
+#       testResultsFiles: $(testResultsFiles)
+#       Artifactspath: $(Artifactspath)
+#       specificVersion: $(specificVersion)
+#   # - template: templatesMaven/maven-build.yaml@reusablePrivateTemplates
+#   #   parameters:
+#   #     goal: $(goal)
+#   #     testResultsFiles: $(testResultsFiles)
+#   #     Artifactspath: $(Artifactspath)
+#   #     specificVersion: $(specificVersion
